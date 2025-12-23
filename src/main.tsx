@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import { router } from "./app/router";
 import { Providers } from "./app/providers";
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Providers>
       <RouterProvider router={router} />
+      <Toaster position="top-right" />
     </Providers>
   </React.StrictMode>
 );

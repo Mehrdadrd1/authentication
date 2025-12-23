@@ -1,7 +1,7 @@
 import { api } from "../config/axios";
 
 export type LoginPayload = {
-  userName: string;
+  username: string;
   password: string;
 };
 

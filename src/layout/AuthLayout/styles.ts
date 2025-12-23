@@ -9,10 +9,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 100%;
-  max-width: 384px;
+  width: 384px;
   padding: 24px;
   background: #ffffff;
   border-radius: 8px;
+  border: 1px solid #e2e8f0;
   box-shadow: 0px 1px 2px 0px #0000000d;
 `;
