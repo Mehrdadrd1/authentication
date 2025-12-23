@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Login, Register, Dashboard } from "../pages";
 
 import { ProtectedRoute } from "./protectedRoute";
+import AuthLayout from "../layout/AuthLayout";
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +14,13 @@ export const router = createBrowserRouter([
       <Navigate to="/login" replace />
     ),
   },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
+  {
+    element: <AuthLayout />,
+    children: [
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ],
+  },
   {
     path: "/dashboard",
     element: (

@@ -1,5 +1,7 @@
+import "./login.styles.css";
+
 const Login = () => {
-  return <div>Login</div>;
+  return <div className="loginRoot">Login</div>;
 };
 
 export default Login;
