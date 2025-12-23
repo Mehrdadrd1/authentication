@@ -21,9 +21,12 @@ import arianaLogo from "../../assets/arianaLogo.svg";
 import dashboardSvg from "../../assets/dashboardSvg.svg";
 import logoutSvg from "../../assets/logoutSvg.svg";
 import toast from "react-hot-toast";
+import { AUTH_TOKEN_KEY } from "../../constants";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data: user, isLoading } = useCurrentUser();
   const { mutate: logout } = useLogout();
 
@@ -32,13 +35,14 @@ const Dashboard = () => {
   const handleLogout = () => {
     logout(undefined, {
       onSuccess: () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem(AUTH_TOKEN_KEY);
         toast.success("Logout Successfully");
+        queryClient.clear();
         navigate("/login", { replace: true });
       },
       onError: () => {
         toast.error("Already logged out or session expired");
-        localStorage.removeItem("token");
+        localStorage.removeItem(AUTH_TOKEN_KEY);
         navigate("/login", { replace: true });
       },
     });

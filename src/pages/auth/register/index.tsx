@@ -84,7 +84,7 @@ const Register = () => {
           setAvatar(null);
           setErrors({});
 
-          navigate("/login");
+          navigate("/dashboard");
         },
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
