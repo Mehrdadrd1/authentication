@@ -21,6 +21,7 @@ import {
 
 import arianaLogo from "../../../assets/arianaLogo.svg";
 import toast from "react-hot-toast";
+import { AUTH_TOKEN_KEY } from "../../../constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Login = () => {
       { username, password },
       {
         onSuccess: (data) => {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem(AUTH_TOKEN_KEY, data.token);
           navigate("/dashboard");
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

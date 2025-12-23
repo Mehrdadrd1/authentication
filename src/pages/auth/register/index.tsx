@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// import { useRegister } from "../../../api/queries/register";
+import { useRegister } from "../../../api/queries/register";
 import {
   Container,
   LogoWrapper,
@@ -21,10 +21,11 @@ import {
 
 import arianaLogo from "../../../assets/arianaLogo.svg";
 import toast from "react-hot-toast";
+import { AUTH_TOKEN_KEY } from "../../../constants";
 
 const Register = () => {
   const navigate = useNavigate();
-  // const { mutate, isPending } = useRegister();
+  const { mutate, isPending } = useRegister();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -61,27 +62,30 @@ const Register = () => {
 
     if (Object.keys(newErrors).length > 0) return;
 
-    const formData = new FormData();
-    formData.append("first_name", firstName);
-    formData.append("last_name", lastName);
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("confirm_password", confirmPassword);
-    if (avatar) formData.append("avatar", avatar);
-
-    // mutate(formData, {
-    //   onSuccess: (data) => {
-    //     localStorage.setItem("token", data.token);
-    //     toast.success("Registration successful!");
-    //     navigate("/login");
-    //   },
-    //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //   onError: (error: any) => {
-    //     toast.error(
-    //       error?.response?.data?.non_field_errors?.[0] || "Registration failed"
-    //     );
-    //   },
-    // });
+    mutate(
+      {
+        first_name: firstName,
+        last_name: lastName,
+        username,
+        password,
+        confirm_password: confirmPassword,
+        avatar: avatar,
+      },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+          toast.success("Registration successful!");
+          navigate("/login");
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          toast.error(
+            error?.response?.data?.non_field_errors?.[0] ||
+              "Registration failed"
+          );
+        },
+      }
+    );
   };
 
   return (
@@ -161,15 +165,14 @@ const Register = () => {
           )}
         </Field>
 
-        <Button type="submit" /*disabled={isPending}*/>
-          {/* {isPending ? "Registering..." : "Register"} */}
-          Register
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Registering..." : "Register"}
         </Button>
       </Form>
 
       <FooterText>
         Already have an account?
-        <SignupLink to="/login">Login</SignupLink>
+        <SignupLink to="/login">Sign in</SignupLink>
       </FooterText>
     </Container>
   );
