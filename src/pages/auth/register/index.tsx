@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useRegister } from "../../../api/queries/register";
@@ -75,18 +75,45 @@ const Register = () => {
         onSuccess: (data) => {
           localStorage.setItem(AUTH_TOKEN_KEY, data.token);
           toast.success("Registration successful!");
+
+          setFirstName("");
+          setLastName("");
+          setUserName("");
+          setPassword("");
+          setConfirmPassword("");
+          setAvatar(null);
+          setErrors({});
+
           navigate("/login");
         },
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
-          toast.error(
-            error?.response?.data?.non_field_errors?.[0] ||
-              "Registration failed"
-          );
+          const data = error?.response?.data;
+
+          // Specific case: username already exists
+          if (
+            data?.non_field_errors?.length &&
+            data.non_field_errors[0] === "Username already exists."
+          ) {
+            setErrors({
+              username: data.non_field_errors[0],
+            });
+            return;
+          }
+
+          // fallback
+          toast.error("Registration failed");
         },
       }
     );
   };
+
+  useEffect(() => {
+    return () => {
+      setErrors({});
+    };
+  }, []);
 
   return (
     <Container>
@@ -112,8 +139,9 @@ const Register = () => {
           {errors.avatar && <ErrorText>{errors.avatar}</ErrorText>}
         </Field>
         <Field>
-          <Label>First Name</Label>
+          <Label hasError={!!errors.firstName}>First Name</Label>
           <Input
+            hasError={!!errors.firstName}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="First Name"
@@ -122,8 +150,9 @@ const Register = () => {
         </Field>
 
         <Field>
-          <Label>Last Name</Label>
+          <Label hasError={!!errors.lastName}>Last Name</Label>
           <Input
+            hasError={!!errors.lastName}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             placeholder="Last Name"
@@ -132,8 +161,9 @@ const Register = () => {
         </Field>
 
         <Field>
-          <Label>Username</Label>
+          <Label hasError={!!errors.username}>Username</Label>
           <Input
+            hasError={!!errors.username}
             value={username}
             onChange={(e) => setUserName(e.target.value)}
             placeholder="Username"
@@ -142,8 +172,9 @@ const Register = () => {
         </Field>
 
         <Field>
-          <Label>Password</Label>
+          <Label hasError={!!errors.password}>Password</Label>
           <Input
+            hasError={!!errors.password}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -153,8 +184,9 @@ const Register = () => {
         </Field>
 
         <Field>
-          <Label>Confirm Password</Label>
+          <Label hasError={!!errors.password}>Confirm Password</Label>
           <Input
+            hasError={!!errors.password}
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

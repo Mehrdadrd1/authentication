@@ -51,13 +51,17 @@ const Login = () => {
       {
         onSuccess: (data) => {
           localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+
+          setUserName("");
+          setPassword("");
+          setErrors({});
+
           navigate("/dashboard");
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (error: any) => {
-          console.log("🚀 ~ index.tsx:42 ~ handleSubmit ~ error:", error);
           toast.error(
-            error?.response?.data?.non_field_errors[0] || "Login failed"
+            error?.response?.data?.non_field_errors?.[0] || "Login failed"
           );
         },
       }
