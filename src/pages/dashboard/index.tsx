@@ -60,7 +60,7 @@ const Dashboard = () => {
         </DashboardUserInfo>
         <DashboardLogoutButton onClick={handleLogout}>
           <DashboardLogoutIcon src={logoutSvg} alt="Logout" />
-          Logout
+          {isLoading ? "Logging out..." : "Logout"}
         </DashboardLogoutButton>
       </DashboardSidebar>
 
