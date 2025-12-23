@@ -184,9 +184,9 @@ const Register = () => {
         </Field>
 
         <Field>
-          <Label hasError={!!errors.password}>Confirm Password</Label>
+          <Label hasError={!!errors.confirmPassword}>Confirm Password</Label>
           <Input
-            hasError={!!errors.password}
+            hasError={!!errors.confirmPassword}
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
