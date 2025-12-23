@@ -1,75 +1,75 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useCurrentUser } from "../../api/queries/currentUser";
 import { useLogout } from "../../api/queries/logout";
+import {
+  DashboardAvatar,
+  DashboardContainer,
+  DashboardFullName,
+  DashboardLogo,
+  DashboardLogoutButton,
+  DashboardLogoutIcon,
+  DashboardMainContent,
+  DashboardNavbar,
+  DashboardPageContent,
+  DashboardSidebar,
+  DashboardSVG,
+  DashboardUserInfo,
+  DashboardUsername,
+} from "./dashboard.styles";
+
+import arianaLogo from "../../assets/arianaLogo.svg";
+import dashboardSvg from "../../assets/dashboardSvg.svg";
+import logoutSvg from "../../assets/logoutSvg.svg";
 import toast from "react-hot-toast";
-import { AUTH_TOKEN_KEY } from "../../constants";
-
-const Container = styled.div`
-  min-height: 100vh;
-  padding: 24px;
-  background-color: #f8fafc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-`;
-
-const Card = styled.div`
-  background: #ffffff;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 768px;
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: 28px;
-  font-weight: 600;
-`;
-
-const Button = styled.button`
-  padding: 10px 16px;
-  background-color: #0f172a;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #64748b;
-  }
-`;
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { data: user, isLoading, error } = useCurrentUser();
+  const { data: user, isLoading } = useCurrentUser();
   const { mutate: logout } = useLogout();
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching user</p>;
 
   const handleLogout = () => {
     logout(undefined, {
-      onSuccess: (data) => {
-        localStorage.removeItem(AUTH_TOKEN_KEY);
-        toast.success(data.message);
-        navigate("/login");
+      onSuccess: () => {
+        localStorage.removeItem("token");
+        toast.success("Logout Successfully");
+        navigate("/login", { replace: true });
       },
-      onError: () => toast.error("Logout failed"),
+      onError: () => {
+        toast.error("Already logged out or session expired");
+        localStorage.removeItem("token");
+        navigate("/login", { replace: true });
+      },
     });
   };
 
   return (
-    <Container>
-      <Card>
-        <Title>Welcome, {user?.username || "User"}!</Title>
-        <p>This is your dashboard page.</p>
-        <Button onClick={handleLogout}>Logout</Button>
-      </Card>
-    </Container>
+    <DashboardContainer>
+      <DashboardSidebar>
+        <DashboardAvatar src={user?.avatar} alt="User Avatar" />
+        <DashboardUserInfo>
+          <DashboardFullName>
+            {user?.first_name} {user?.last_name}
+          </DashboardFullName>
+          <DashboardUsername>@{user?.username}</DashboardUsername>
+        </DashboardUserInfo>
+        <DashboardLogoutButton onClick={handleLogout}>
+          <DashboardLogoutIcon src={logoutSvg} alt="Logout" />
+          Logout
+        </DashboardLogoutButton>
+      </DashboardSidebar>
+
+      <DashboardMainContent>
+        <DashboardNavbar>
+          <DashboardLogo src={arianaLogo} alt="Ariana Logo" />
+        </DashboardNavbar>
+
+        <DashboardPageContent>
+          <DashboardSVG src={dashboardSvg} alt="Dashboard" />
+        </DashboardPageContent>
+      </DashboardMainContent>
+    </DashboardContainer>
   );
 };
 
