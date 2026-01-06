@@ -12,6 +12,7 @@ const TweetsPage = () => {
       <TweetsContent>
         <SearchBar value={search} onChange={setSearch} />
         {/* <CreateTweet /> */}
+        {search ? null : "create Tweet"}
         <TweetList search={search} />
       </TweetsContent>
     </TweetsPageContainer>

@@ -33,7 +33,7 @@ const SearchBar: React.FC<Props> = ({ value, onChange, hasError }) => {
         value={localValue}
         onChange={handleChange}
         hasError={hasError}
-        placeholder="Search tweets…"
+        placeholder="search"
       />
     </Container>
   );

@@ -5,8 +5,7 @@ export const TweetCard = styled.div`
   padding: 16px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  background-color: #ffffff;
-
+  background: var(--Fills-Quaternary, #78788014);
   display: flex;
   flex-direction: column;
   gap: 12px;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const TweetsPageContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: #f8fafc;
   min-height: 100vh;
 `;
 
