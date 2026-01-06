@@ -1,4 +1,3 @@
-import { AUTH_TOKEN_KEY } from "../../constants";
 import { api } from "../config/axios";
 
 export type CurrentUserResponse = {
@@ -9,9 +8,6 @@ export type CurrentUserResponse = {
 };
 
 export const getCurrentUser = async (): Promise<CurrentUserResponse> => {
-  const token = localStorage.getItem(AUTH_TOKEN_KEY);
-  const response = await api.get<CurrentUserResponse>("/staff/current_user/", {
-    headers: { Authorization: `Token ${token}` },
-  });
+  const response = await api.get<CurrentUserResponse>("/staff/current_user/");
   return response.data;
 };
