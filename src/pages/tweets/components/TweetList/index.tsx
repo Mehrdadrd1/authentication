@@ -2,6 +2,7 @@ import TweetItem from "../TweetItem";
 import { TweetListContainer, TweetListLoader } from "./tweetList.styles";
 import { useRef, useEffect } from "react";
 import { useInfiniteTweets } from "../../../../api/queries/useGetTweets";
+import EmptyState from "./emptyState";
 
 export default function TweetList({ search }: { search: string }) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -21,6 +22,10 @@ export default function TweetList({ search }: { search: string }) {
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage]);
+
+  if (search && data?.pages[0].results.length === 0) {
+    return <EmptyState searchTerm={search} />;
+  }
 
   return (
     <TweetListContainer>

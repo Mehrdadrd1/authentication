@@ -31,3 +31,30 @@ export const SearchIcon = styled.img`
   display: block;
   flex-shrink: 0;
 `;
+
+export const EmptyStateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #585858;
+`;
+
+export const EmptyStateText = styled.p`
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 400px;
+`;
+
+export const Highlight = styled.span`
+  font-weight: 600;
+  color: #000;
+`;
+
+export const EmptyStateSVG = styled.img`
+  max-width: 50%;
+  height: auto;
+`;
