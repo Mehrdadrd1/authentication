@@ -109,3 +109,22 @@ export const DashboardLogoutIcon = styled.img`
   display: block;
   flex-shrink: 0;
 `;
+
+export const DashboardNavButton = styled.button`
+  margin-left: auto;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f5f9;
+  }
+`;

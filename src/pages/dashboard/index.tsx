@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../api/queries/currentUser";
 import { useLogout } from "../../api/queries/logout";
 import {
@@ -10,6 +10,7 @@ import {
   DashboardLogoutIcon,
   DashboardMainContent,
   DashboardNavbar,
+  DashboardNavButton,
   DashboardPageContent,
   DashboardSidebar,
   DashboardSVG,
@@ -26,9 +27,12 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const queryClient = useQueryClient();
   const { data: user, isLoading } = useCurrentUser();
-  const { mutate: logout } = useLogout();
+  const { mutate: logout, isPending } = useLogout();
+
+  const isDashboardHome = location.pathname === "/dashboard";
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -60,17 +64,28 @@ const Dashboard = () => {
         </DashboardUserInfo>
         <DashboardLogoutButton onClick={handleLogout}>
           <DashboardLogoutIcon src={logoutSvg} alt="Logout" />
-          {isLoading ? "Logging out..." : "Logout"}
+          {isPending ? "Logging out..." : "Logout"}
         </DashboardLogoutButton>
       </DashboardSidebar>
 
       <DashboardMainContent>
         <DashboardNavbar>
           <DashboardLogo src={arianaLogo} alt="Ariana Logo" />
+          <DashboardNavButton
+            onClick={() =>
+              navigate(isDashboardHome ? "/dashboard/tweets" : "/dashboard")
+            }
+          >
+            {isDashboardHome ? "Tweets" : "Dashboard"}
+          </DashboardNavButton>
         </DashboardNavbar>
 
         <DashboardPageContent>
-          <DashboardSVG src={dashboardSvg} alt="Dashboard" />
+          {isDashboardHome ? (
+            <DashboardSVG src={dashboardSvg} alt="Dashboard" />
+          ) : (
+            <Outlet />
+          )}
         </DashboardPageContent>
       </DashboardMainContent>
     </DashboardContainer>

@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { Login, Register, Dashboard } from "../pages";
+import { Login, Register, Dashboard, TweetsPage } from "../pages";
 
 import { ProtectedRoute } from "./protectedRoute";
 import AuthLayout from "../layout/AuthLayout";
@@ -28,5 +28,11 @@ export const router = createBrowserRouter([
         <Dashboard />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        path: "tweets",
+        element: <TweetsPage />,
+      },
+    ],
   },
 ]);
