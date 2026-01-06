@@ -1,8 +1,8 @@
-import TweetItem from "../TweetItem";
-import { TweetListContainer, TweetListLoader } from "./tweetList.styles";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useInfiniteTweets } from "../../../../api/queries/useGetTweets";
+import TweetItem from "../TweetItem";
 import EmptyState from "./emptyState";
+import { TweetListContainer, TweetListLoader } from "./tweetList.styles";
 
 export default function TweetList({ search }: { search: string }) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -30,7 +30,14 @@ export default function TweetList({ search }: { search: string }) {
   return (
     <TweetListContainer>
       {data?.pages.flatMap((page) =>
-        page.results.map((tweet) => <TweetItem key={tweet.id} tweet={tweet} />)
+        page.results.map((tweet) => (
+          <TweetItem
+            key={tweet.id}
+            tweet={tweet}
+            authorAvatar={tweet.author.avatar}
+            authorName={`${tweet.author.first_name} ${tweet.author.last_name}`}
+          />
+        ))
       )}
 
       {hasNextPage && (

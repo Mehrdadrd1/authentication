@@ -14,7 +14,7 @@ const SearchBar: React.FC<Props> = ({ value, onChange, hasError }) => {
   useEffect(() => {
     const handler = setTimeout(() => {
       onChange(localValue);
-    }, 500); // 0.5s debounce
+    }, 500);
 
     return () => clearTimeout(handler);
   }, [localValue, onChange]);
