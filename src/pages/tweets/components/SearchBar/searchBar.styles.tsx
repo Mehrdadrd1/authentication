@@ -7,6 +7,7 @@ export const Container = styled.div`
 
 export const Input = styled.input<{ hasError?: boolean }>`
   width: 100%;
+  box-sizing: border-box;
   padding: 12px 14px 12px 36px; // space for icon
   font-size: 14px;
   border-radius: 6px;

@@ -8,6 +8,7 @@ export const Container = styled.div`
   padding: 16px;
   background-color: #fff;
   gap: 12px;
+  width: 100%;
 `;
 
 export const TopRow = styled.div`

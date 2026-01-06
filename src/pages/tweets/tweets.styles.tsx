@@ -8,10 +8,10 @@ export const TweetsPageContainer = styled.div`
 
 export const TweetsContent = styled.div`
   width: 100%;
-  max-width: 720px;
+  min-width: 640px;
   padding: 24px;
-
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 22px;
+  box-sizing: border-box;
 `;
