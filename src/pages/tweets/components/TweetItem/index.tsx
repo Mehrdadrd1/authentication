@@ -1,6 +1,7 @@
 import type { Tweet } from "../../../../api/services/tweets.list";
 import {
   Avatar,
+  DeleteButton,
   TweetAuthor,
   TweetCard,
   TweetHeader,
@@ -8,17 +9,29 @@ import {
   TweetTime,
 } from "./tweetItem.styles";
 
+import { useDeleteTweet } from "../../../../api/queries/tweets.delete";
 import noImage from "../../../../assets/noImage.svg";
+import ellipsis from "../../../../assets/ellipsis.svg";
 
 type Props = {
   tweet: Tweet;
-  authorAvatar?: string; // pass avatar of the tweet's author
+  authorAvatar?: string | null; // pass avatar of the tweet's author
   authorName?: string; // pass author's name
 };
 
 export default function TweetItem({ tweet, authorAvatar, authorName }: Props) {
+  const { mutate: deleteMutate, isPending: isDeleting } = useDeleteTweet();
+
+  const handleDelete = () => {
+    deleteMutate(tweet.id);
+  };
+
   return (
     <TweetCard>
+      <DeleteButton onClick={handleDelete} disabled={isDeleting}>
+        <img src={ellipsis} alt="Delete tweet" />
+      </DeleteButton>
+
       <TweetHeader>
         <Avatar
           src={authorAvatar ? authorAvatar : noImage}

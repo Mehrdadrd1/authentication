@@ -4,7 +4,7 @@ export interface Tweet {
   id: number;
   text: string;
   author: {
-    avatar: string;
+    avatar: string | null;
     first_name: string;
     last_name: string;
     username: string;

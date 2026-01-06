@@ -8,6 +8,7 @@ export const TweetCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
 `;
 
 export const TweetHeader = styled.div`
@@ -40,4 +41,19 @@ export const TweetText = styled.p`
   line-height: 22px;
   color: #000;
   white-space: pre-wrap; /* preserves spaces & newlines */
+`;
+
+export const DeleteButton = styled.button<{ disabled?: boolean }>`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
 `;
