@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TweetsContent, TweetsPageContainer } from "./tweets.styles";
 import TweetList from "./components/TweetList";
 import SearchBar from "./components/SearchBar";
+import CreateTweet from "./components/createTweet";
 
 const TweetsPage = () => {
   const [search, setSearch] = useState("");
@@ -11,8 +12,8 @@ const TweetsPage = () => {
     <TweetsPageContainer>
       <TweetsContent>
         <SearchBar value={search} onChange={setSearch} />
-        {/* <CreateTweet /> */}
-        {!search && <div style={{ margin: "16px 0" }}>Create Tweet</div>}
+
+        {!search && <CreateTweet />}
         <TweetList search={search} />
       </TweetsContent>
     </TweetsPageContainer>
