@@ -57,3 +57,44 @@ export const DeleteButton = styled.button<{ disabled?: boolean }>`
     height: 18px;
   }
 `;
+
+export const DeleteMenu = styled.div`
+  position: absolute;
+  top: 20px;
+  right: -100px;
+  min-width: 140px;
+  background-color: #fff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DeleteMenuItem = styled.button<{ disabled?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f2f4f7;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+`;
