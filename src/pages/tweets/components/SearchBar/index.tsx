@@ -13,6 +13,11 @@ const SearchBar: React.FC<Props> = ({ value, onChange, hasError }) => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
+      if (localValue.trim() === "") {
+        onChange("");
+        return;
+      }
+
       onChange(localValue);
     }, 500);
 
