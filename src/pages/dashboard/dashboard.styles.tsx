@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const DashboardContainer = styled.div`
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #ffffff;
+  overflow: hidden;
 `;
 
 export const DashboardSidebar = styled.div`
   width: 280px;
+  height: 100vh;
   background-color: #f8fafc;
   display: flex;
   flex-direction: column;
@@ -93,9 +95,11 @@ export const DashboardLogo = styled.img`
 
 export const DashboardPageContent = styled.div`
   flex: 1;
+  overflow-y: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 16px;
 `;
 
 export const DashboardSVG = styled.img`
