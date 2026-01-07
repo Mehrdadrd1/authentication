@@ -26,7 +26,7 @@ type Props = {
 
 export default function TweetItem({ tweet, authorAvatar, authorName }: Props) {
   const { mutate: deleteMutate, isPending: isDeleting } = useDeleteTweet();
-  const { data: user, isLoading } = useCurrentUser();
+  const { data: user } = useCurrentUser();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);

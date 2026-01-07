@@ -24,7 +24,11 @@ export default function TweetList({ search }: { search: string }) {
   }, [fetchNextPage, hasNextPage]);
 
   if (search && data?.pages[0].results.length === 0) {
-    return <EmptyState searchTerm={search} />;
+    return (
+      <TweetListContainer>
+        <EmptyState searchTerm={search} />;
+      </TweetListContainer>
+    );
   }
 
   return (

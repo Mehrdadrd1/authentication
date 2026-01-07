@@ -4,11 +4,11 @@ export const TweetsPageContainer = styled.div`
   display: flex;
   justify-content: center;
   min-height: 100vh;
+  width: 100%;
 `;
 
 export const TweetsContent = styled.div`
   width: 100%;
-  min-width: 640px;
   max-width: 720px;
   padding: 24px;
   display: flex;
