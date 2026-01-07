@@ -1,15 +1,11 @@
 import { useState } from "react";
-// import CreateTweet from "./CreateTweet";
-import { TweetsContent, TweetsPageContainer } from "./tweets.styles";
-import TweetList from "./components/TweetList";
 import SearchBar from "./components/SearchBar";
+import TweetList from "./components/TweetList";
 import CreateTweet from "./components/createTweet";
-import { useTweetsWebSocket } from "../../api/queries/tweetsWS";
+import { TweetsContent, TweetsPageContainer } from "./tweets.styles";
 
 const TweetsPage = () => {
   const [search, setSearch] = useState("");
-
-  useTweetsWebSocket();
 
   return (
     <TweetsPageContainer>

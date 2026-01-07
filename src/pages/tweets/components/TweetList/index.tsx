@@ -3,10 +3,15 @@ import { useInfiniteTweets } from "../../../../api/queries/useGetTweets";
 import TweetItem from "../TweetItem";
 import EmptyState from "./emptyState";
 import { TweetListContainer, TweetListLoader } from "./tweetList.styles";
+import { useTweetsWebSocket } from "../../../../api/queries/tweetsWS";
 
 export default function TweetList({ search }: { search: string }) {
+  const queryParams = { search, count_per_page: 10 };
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteTweets({ search, count_per_page: 10 });
+    useInfiniteTweets(queryParams);
+
+  useTweetsWebSocket(queryParams);
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
