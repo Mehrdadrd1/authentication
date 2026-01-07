@@ -16,6 +16,7 @@ import { useDeleteTweet } from "../../../../api/queries/tweets.delete";
 import noImage from "../../../../assets/noImage.svg";
 import ellipsis from "../../../../assets/ellipsis.svg";
 import deleteIcon from "../../../../assets/deleteIcon.svg"; // icon for delete menu
+import { useCurrentUser } from "../../../../api/queries/currentUser";
 
 type Props = {
   tweet: Tweet;
@@ -25,6 +26,8 @@ type Props = {
 
 export default function TweetItem({ tweet, authorAvatar, authorName }: Props) {
   const { mutate: deleteMutate, isPending: isDeleting } = useDeleteTweet();
+  const { data: user, isLoading } = useCurrentUser();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -47,9 +50,11 @@ export default function TweetItem({ tweet, authorAvatar, authorName }: Props) {
   return (
     <TweetCard>
       <div style={{ position: "relative" }} ref={menuRef}>
-        <DeleteButton onClick={() => setMenuOpen((prev) => !prev)}>
-          <img src={ellipsis} alt="Options" />
-        </DeleteButton>
+        {user?.username === tweet.author.username && (
+          <DeleteButton onClick={() => setMenuOpen((prev) => !prev)}>
+            <img src={ellipsis} alt="Options" />
+          </DeleteButton>
+        )}
 
         {menuOpen && (
           <DeleteMenu>

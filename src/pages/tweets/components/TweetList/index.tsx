@@ -6,7 +6,7 @@ import { TweetListContainer, TweetListLoader } from "./tweetList.styles";
 
 export default function TweetList({ search }: { search: string }) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteTweets({ search, count_per_page: 10 }); // example
+    useInfiniteTweets({ search, count_per_page: 10 });
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
